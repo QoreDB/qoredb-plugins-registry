@@ -1,19 +1,21 @@
 {
   "$schema": "./schema/registry-entry.schema.json",
   "registryVersion": 1,
-  "generatedAt": "2026-05-24T15:42:39Z",
+  "generatedAt": "2026-05-24T18:30:24Z",
   "plugins": [
     {
       "id": "qoredb.danger-guard",
       "name": "Danger Guard",
       "author": "QoreDB",
       "description": "Blocks destructive DDL (DROP, TRUNCATE) and warns on UPDATE/DELETE without WHERE.",
+      "category": "safety",
       "latestVersion": "1.0.0",
       "kind": "executable",
       "versions": [
         {
           "version": "1.0.0",
           "qoredb": ">=0.1.29",
+          "category": "safety",
           "kind": "executable",
           "runtime": {
             "abiVersion": 1,
@@ -35,8 +37,8 @@
           },
           "archive": {
             "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.danger-guard/1.0.0/plugin.zip",
-            "sha256": "sha256-932ca645527ca180c100db88a6e218cc4a34e70a255002c6f8a67afeb62af3cd",
-            "sizeBytes": 45442
+            "sha256": "sha256-65f3a2578b6f22d8e61f752901dbab2bce6ebb068102759073fc4f16ddba5057",
+            "sizeBytes": 45454
           },
           "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.danger-guard/1.0.0/plugin.json"
         }
@@ -47,12 +49,14 @@
       "name": "Query Stats",
       "author": "QoreDB",
       "description": "Counts queries per driver and per operation type. Run the 'Show stats' command to see the totals.",
+      "category": "observability",
       "latestVersion": "1.0.0",
       "kind": "executable",
       "versions": [
         {
           "version": "1.0.0",
           "qoredb": ">=0.1.29",
+          "category": "observability",
           "kind": "executable",
           "runtime": {
             "abiVersion": 1,
@@ -78,8 +82,8 @@
           },
           "archive": {
             "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.query-stats/1.0.0/plugin.zip",
-            "sha256": "sha256-9374b07e8259f563595a248b1cd8035d6f70657841f25692714e4ea0c8298e2d",
-            "sizeBytes": 55500
+            "sha256": "sha256-d2ddff07d70f05d7aa5e83bf7c97b6c633dab09434f46ba9b20a8cb5170bfd69",
+            "sizeBytes": 55516
           },
           "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.query-stats/1.0.0/plugin.json"
         }
@@ -90,12 +94,14 @@
       "name": "Slow Query Toast",
       "author": "QoreDB",
       "description": "Surfaces a toast when a query takes longer than the configured threshold (default 1000 ms).",
+      "category": "observability",
       "latestVersion": "1.0.0",
       "kind": "executable",
       "versions": [
         {
           "version": "1.0.0",
           "qoredb": ">=0.1.29",
+          "category": "observability",
           "kind": "executable",
           "runtime": {
             "abiVersion": 1,
@@ -121,8 +127,8 @@
           },
           "archive": {
             "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.slow-query-toast/1.0.0/plugin.zip",
-            "sha256": "sha256-c76b9506dff7d1b85ddccb3943d74747afba53f8577a5e6c5c1bc18124f829a0",
-            "sizeBytes": 51516
+            "sha256": "sha256-bca16270c3e69dbef5f73b0eb507dd5d7211f90368f66510f00382dedffecc38",
+            "sizeBytes": 51530
           },
           "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.slow-query-toast/1.0.0/plugin.json"
         }

@@ -37,6 +37,13 @@
         "name": { "type": "string", "minLength": 1 },
         "author": { "type": ["string", "null"] },
         "description": { "type": ["string", "null"] },
+        "category": {
+          "anyOf": [
+            { "type": "null" },
+            { "enum": ["safety", "observability", "productivity", "theming", "integrations"] }
+          ],
+          "description": "Marketplace browsing category. Mirrors `plugin.json#category` of the latest version."
+        },
         "latestVersion": {
           "type": "string",
           "description": "Convenience pointer to the most recent entry of `versions`."
@@ -59,6 +66,13 @@
       "properties": {
         "version": { "type": "string", "minLength": 1 },
         "qoredb": { "type": ["string", "null"], "description": "QoreDB version requirement, e.g. `>=0.1.29`. Mirrors `plugin.json#qoredb`." },
+        "category": {
+          "anyOf": [
+            { "type": "null" },
+            { "enum": ["safety", "observability", "productivity", "theming", "integrations"] }
+          ],
+          "description": "Marketplace browsing category copied from this version's `plugin.json#category`."
+        },
         "kind": { "enum": ["declarative", "executable"] },
         "runtime": {
           "anyOf": [

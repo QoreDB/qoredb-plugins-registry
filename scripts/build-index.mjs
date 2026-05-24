@@ -109,6 +109,7 @@ async function buildVersion(pluginId, version, vdir) {
   return {
     version,
     qoredb: manifest.qoredb ?? null,
+    category: manifest.category ?? null,
     kind: isExecutable ? "executable" : "declarative",
     runtime: isExecutable
       ? {
@@ -156,6 +157,7 @@ async function buildIndex() {
       name: manifestForName.name,
       author: manifestForName.author ?? null,
       description: manifestForName.description ?? null,
+      category: manifestForName.category ?? null,
       latestVersion: latest.version,
       kind: latest.kind,
       versions,
