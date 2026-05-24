@@ -1,0 +1,23 @@
+name: Verify registry
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - name: Rebuild and check for drift
+        run: |
+          node scripts/build-index.mjs
+          if ! git diff --exit-code; then
+            echo "::error::index.json or plugin.zip files drift from the manifests. Run 'node scripts/build-index.mjs' locally and commit the result."
+            exit 1
+          fi

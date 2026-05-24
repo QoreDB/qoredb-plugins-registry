@@ -1,0 +1,15 @@
+{
+  "name": "qoredb-plugins-registry",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Canonical source of truth for plugins in the QoreDB marketplace.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-index.mjs",
+    "verify": "node scripts/build-index.mjs && git diff --exit-code"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.5.16"
+  },
+  "license": "Apache-2.0"
+}

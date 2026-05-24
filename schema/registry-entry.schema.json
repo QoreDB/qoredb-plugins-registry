@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qoredb.com/schemas/plugin-registry-index.schema.json",
+  "title": "QoreDB plugin registry index",
+  "description": "Catalogue (machine-readable) of all approved plugins in the QoreDB marketplace. Generated from the per-plugin manifests under plugins/<id>/<version>/plugin.json. Powers the marketplace UI on https://qoredb.com/marketplace and the Marketplace tab inside the QoreDB app.",
+  "type": "object",
+  "required": ["registryVersion", "generatedAt", "plugins"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "registryVersion": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version of this index. Bumped only when the index shape changes in a way that breaks consumers."
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the index was last regenerated from the on-disk manifests."
+    },
+    "plugins": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/plugin" }
+    }
+  },
+  "$defs": {
+    "plugin": {
+      "type": "object",
+      "required": ["id", "name", "latestVersion", "kind", "versions"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "description": "Reverse-DNS plugin id, e.g. `qoredb.danger-guard`. Must match `plugin.json#id`."
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "author": { "type": ["string", "null"] },
+        "description": { "type": ["string", "null"] },
+        "latestVersion": {
+          "type": "string",
+          "description": "Convenience pointer to the most recent entry of `versions`."
+        },
+        "kind": {
+          "enum": ["declarative", "executable"],
+          "description": "`executable` means the plugin ships a sandboxed WASM module (manifest has a `runtime` block). `declarative` means the plugin contributes static data only."
+        },
+        "versions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/version" }
+        }
+      }
+    },
+    "version": {
+      "type": "object",
+      "required": ["version", "kind", "contributes", "archive", "manifestUrl"],
+      "additionalProperties": false,
+      "properties": {
+        "version": { "type": "string", "minLength": 1 },
+        "qoredb": { "type": ["string", "null"], "description": "QoreDB version requirement, e.g. `>=0.1.29`. Mirrors `plugin.json#qoredb`." },
+        "kind": { "enum": ["declarative", "executable"] },
+        "runtime": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["abiVersion", "entry"],
+              "additionalProperties": false,
+              "properties": {
+                "abiVersion": { "type": "integer", "const": 1, "description": "Host ABI version the plugin was built against. Current: 1." },
+                "entry": { "type": "string", "pattern": "^[^/\\\\]+\\.wasm$" },
+                "hooks": {
+                  "type": "array",
+                  "items": { "enum": ["preExecute", "postExecute"] }
+                },
+                "capabilities": {
+                  "type": "array",
+                  "items": { "enum": ["log", "notify", "storage", "queryRead", "http", "fs", "secrets"] },
+                  "description": "Flat list of capabilities requested by the manifest. Surfaced as badges in the UI; the canonical structured shape lives in the manifest."
+                },
+                "integrity": {
+                  "type": ["string", "null"],
+                  "pattern": "^sha256-[0-9a-f]{64}$",
+                  "description": "sha256 of the WASM module bytes. Plugins without integrity are surfaced as `Unsigned` in the QoreDB plugins panel."
+                }
+              }
+            }
+          ]
+        },
+        "contributes": {
+          "type": "object",
+          "description": "Summary of declarative contributions, to power the marketplace cards without downloading the archive.",
+          "additionalProperties": false,
+          "properties": {
+            "snippets": { "type": "integer", "minimum": 0 },
+            "connectionTemplates": { "type": "integer", "minimum": 0 },
+            "themes": { "type": "integer", "minimum": 0 },
+            "resultViewers": { "type": "integer", "minimum": 0 },
+            "commands": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Bare command ids the plugin exposes."
+            }
+          }
+        },
+        "archive": {
+          "type": "object",
+          "required": ["url", "sha256", "sizeBytes"],
+          "additionalProperties": false,
+          "properties": {
+            "url": { "type": "string", "format": "uri", "description": "Canonical download URL of `plugin.zip` (manifest + .wasm bundled at the archive root)." },
+            "sha256": { "type": "string", "pattern": "^sha256-[0-9a-f]{64}$", "description": "sha256 of the archive bytes. The QoreDB app verifies this end-to-end before the manifest is parsed." },
+            "sizeBytes": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "manifestUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Canonical URL of the plugin.json — handy for editors and audit tools that want the manifest without unpacking the archive."
+        }
+      }
+    }
+  }
+}
