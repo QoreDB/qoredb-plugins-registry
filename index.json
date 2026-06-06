@@ -107,6 +107,37 @@
       ]
     },
     {
+      "id": "qoredb.pg-schema-explorer",
+      "name": "Postgres Schema Explorer",
+      "author": "QoreDB",
+      "description": "A pack of PostgreSQL schema-inspection queries — foreign keys, unindexed FK columns, sequences nearing overflow, enum types, duplicate indexes and documentation coverage. Insert them from the snippets menu in the query editor.",
+      "category": "productivity",
+      "latestVersion": "1.0.0",
+      "kind": "declarative",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "qoredb": ">=0.1.29",
+          "category": "productivity",
+          "kind": "declarative",
+          "runtime": null,
+          "contributes": {
+            "snippets": 7,
+            "connectionTemplates": 0,
+            "themes": 0,
+            "resultViewers": 0,
+            "commands": []
+          },
+          "archive": {
+            "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.pg-schema-explorer/1.0.0/plugin.zip",
+            "sha256": "sha256-b902753aa9232d9813030c39088edc363f6934ba5d6d54701a633572f750283a",
+            "sizeBytes": 1716
+          },
+          "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.pg-schema-explorer/1.0.0/plugin.json"
+        }
+      ]
+    },
+    {
       "id": "qoredb.query-stats",
       "name": "Query Stats",
       "author": "QoreDB",
@@ -175,8 +206,8 @@
           },
           "archive": {
             "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.rich-viewers/1.0.0/plugin.zip",
-            "sha256": "sha256-bc1c658ed22829e4aa54a63d5c236056aea53595f05210ca68eb9f8f7b7f08dc",
-            "sizeBytes": 718
+            "sha256": "sha256-a747d88bf1d0196742582a429cc165a96616be5265778c16f7225aaec79815cc",
+            "sizeBytes": 733
           },
           "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.rich-viewers/1.0.0/plugin.json"
         }
@@ -262,7 +293,7 @@
       "id": "qoredb.theme-pack",
       "name": "Theme Pack",
       "author": "QoreDB",
-      "description": "Five hand-tuned color themes — Dracula, Nord, Tokyo Night, Gruvbox and Catppuccin — each with matching light and dark variants. Apply one from Settings › Plugins to restyle the whole app.",
+      "description": "Eight hand-tuned color themes — Dracula, Nord, Tokyo Night, Gruvbox, Catppuccin, Solarized, One Dark and Rosé Pine — each with matching light and dark variants. Apply one from Settings › Plugins to restyle the whole app.",
       "category": "theming",
       "latestVersion": "1.0.0",
       "kind": "declarative",
@@ -276,14 +307,14 @@
           "contributes": {
             "snippets": 0,
             "connectionTemplates": 0,
-            "themes": 5,
+            "themes": 8,
             "resultViewers": 0,
             "commands": []
           },
           "archive": {
             "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.theme-pack/1.0.0/plugin.zip",
-            "sha256": "sha256-196dafa9a689abd06a1aa8a83fd35890b34f4a671f55601788e9fa077bd632df",
-            "sizeBytes": 1805
+            "sha256": "sha256-c5cafb5e09160b6fe4e42d42be0370cae7d5b7980e3f07cc70c7a181d1496ec7",
+            "sizeBytes": 2583
           },
           "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.theme-pack/1.0.0/plugin.json"
         }

@@ -1,0 +1,56 @@
+{
+  "$schema": "../../../plugin.schema.json",
+  "id": "qoredb.pg-schema-explorer",
+  "name": "Postgres Schema Explorer",
+  "version": "1.0.0",
+  "author": "QoreDB",
+  "description": "A pack of PostgreSQL schema-inspection queries — foreign keys, unindexed FK columns, sequences nearing overflow, enum types, duplicate indexes and documentation coverage. Insert them from the snippets menu in the query editor.",
+  "category": "productivity",
+  "qoredb": ">=0.1.29",
+  "contributes": {
+    "snippets": [
+      {
+        "id": "foreign-keys",
+        "label": "Foreign keys overview",
+        "description": "Every foreign key, its columns, and the table/columns it references.",
+        "template": "SELECT\n  c.conname AS constraint,\n  src.relname AS table,\n  string_agg(srcatt.attname, ', ' ORDER BY k.ord) AS columns,\n  tgt.relname AS references_table,\n  string_agg(tgtatt.attname, ', ' ORDER BY k.ord) AS references_columns\nFROM pg_constraint c\nJOIN pg_class src ON src.oid = c.conrelid\nJOIN pg_class tgt ON tgt.oid = c.confrelid\nJOIN LATERAL unnest(c.conkey, c.confkey) WITH ORDINALITY AS k(src_attnum, tgt_attnum, ord) ON true\nJOIN pg_attribute srcatt ON srcatt.attrelid = c.conrelid AND srcatt.attnum = k.src_attnum\nJOIN pg_attribute tgtatt ON tgtatt.attrelid = c.confrelid AND tgtatt.attnum = k.tgt_attnum\nWHERE c.contype = 'f'\nGROUP BY c.conname, src.relname, tgt.relname\nORDER BY src.relname, c.conname;"
+      },
+      {
+        "id": "unindexed-fks",
+        "label": "Unindexed foreign keys",
+        "description": "Foreign keys with no index leading on their columns — a common cause of slow deletes and joins.",
+        "template": "SELECT\n  c.conrelid::regclass AS table,\n  c.conname AS fk_constraint,\n  pg_get_constraintdef(c.oid) AS definition\nFROM pg_constraint c\nWHERE c.contype = 'f'\n  AND NOT EXISTS (\n    SELECT 1\n    FROM pg_index i\n    WHERE i.indrelid = c.conrelid\n      AND (string_to_array(i.indkey::text, ' ')::int[])[1:cardinality(c.conkey)] = c.conkey::int[]\n  )\nORDER BY c.conrelid::regclass::text;"
+      },
+      {
+        "id": "sequences-overflow",
+        "label": "Sequences nearing overflow",
+        "description": "Sequences closest to their maximum value — watch these before an integer PK runs out.",
+        "template": "SELECT\n  schemaname AS schema,\n  sequencename AS sequence,\n  last_value,\n  max_value,\n  round(100 * last_value::numeric / max_value, 1) AS pct_used\nFROM pg_sequences\nWHERE last_value IS NOT NULL\nORDER BY last_value::numeric / max_value DESC\nLIMIT 20;"
+      },
+      {
+        "id": "enum-types",
+        "label": "Enum types and values",
+        "description": "Every user-defined enum type and its labels, in sort order.",
+        "template": "SELECT\n  n.nspname AS schema,\n  t.typname AS enum_type,\n  string_agg(e.enumlabel, ', ' ORDER BY e.enumsortorder) AS values\nFROM pg_type t\nJOIN pg_enum e ON e.enumtypid = t.oid\nJOIN pg_namespace n ON n.oid = t.typnamespace\nGROUP BY n.nspname, t.typname\nORDER BY n.nspname, t.typname;"
+      },
+      {
+        "id": "duplicate-indexes",
+        "label": "Duplicate indexes",
+        "description": "Indexes covering the exact same columns on a table — redundant write overhead.",
+        "template": "SELECT\n  indrelid::regclass AS table,\n  array_agg(indexrelid::regclass ORDER BY indexrelid) AS duplicate_indexes\nFROM pg_index\nGROUP BY indrelid, indkey\nHAVING count(*) > 1\nORDER BY indrelid::regclass::text;"
+      },
+      {
+        "id": "columns-inventory",
+        "label": "Column inventory",
+        "description": "Every column with its type, nullability and default — a quick data dictionary.",
+        "template": "SELECT\n  table_schema AS schema,\n  table_name AS table,\n  column_name AS column,\n  data_type,\n  is_nullable,\n  column_default\nFROM information_schema.columns\nWHERE table_schema NOT IN ('pg_catalog', 'information_schema')\nORDER BY table_schema, table_name, ordinal_position;"
+      },
+      {
+        "id": "undocumented-tables",
+        "label": "Documentation coverage",
+        "description": "Tables and their comments, undocumented ones first — find what still needs a COMMENT ON.",
+        "template": "SELECT\n  n.nspname AS schema,\n  c.relname AS table,\n  obj_description(c.oid) AS comment\nFROM pg_class c\nJOIN pg_namespace n ON n.oid = c.relnamespace\nWHERE c.relkind = 'r'\n  AND n.nspname NOT IN ('pg_catalog', 'information_schema')\nORDER BY (obj_description(c.oid) IS NOT NULL), n.nspname, c.relname;"
+      }
+    ]
+  }
+}

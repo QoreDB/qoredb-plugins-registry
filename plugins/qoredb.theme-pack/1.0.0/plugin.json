@@ -4,7 +4,7 @@
   "name": "Theme Pack",
   "version": "1.0.0",
   "author": "QoreDB",
-  "description": "Five hand-tuned color themes — Dracula, Nord, Tokyo Night, Gruvbox and Catppuccin — each with matching light and dark variants. Apply one from Settings › Plugins to restyle the whole app.",
+  "description": "Eight hand-tuned color themes — Dracula, Nord, Tokyo Night, Gruvbox, Catppuccin, Solarized, One Dark and Rosé Pine — each with matching light and dark variants. Apply one from Settings › Plugins to restyle the whole app.",
   "category": "theming",
   "qoredb": ">=0.1.29",
   "contributes": {
@@ -192,6 +192,117 @@
           "--q-warning": "#df8e1d",
           "--q-error": "#d20f39",
           "--q-info": "#1e66f5"
+        }
+      },
+      {
+        "id": "solarized",
+        "name": "Solarized",
+        "description": "Ethan Schoonover's precision palette — selective contrast on tinted bases, in both Dark and Light.",
+        "dark": {
+          "--q-bg-0": "#002b36",
+          "--q-bg-1": "#00252e",
+          "--q-bg-2": "#073642",
+          "--q-border": "#094352",
+          "--q-text-0": "#93a1a1",
+          "--q-text-1": "#839496",
+          "--q-text-2": "#586e75",
+          "--q-accent": "#268bd2",
+          "--q-accent-soft": "rgba(38, 139, 210, 0.15)",
+          "--q-accent-strong": "#4ba3e3",
+          "--q-success": "#859900",
+          "--q-warning": "#b58900",
+          "--q-error": "#dc322f",
+          "--q-info": "#2aa198"
+        },
+        "light": {
+          "--q-bg-0": "#fdf6e3",
+          "--q-bg-1": "#f4eeda",
+          "--q-bg-2": "#eee8d5",
+          "--q-border": "#ddd6c1",
+          "--q-text-0": "#586e75",
+          "--q-text-1": "#657b83",
+          "--q-text-2": "#839496",
+          "--q-accent": "#268bd2",
+          "--q-accent-soft": "#dce8f5",
+          "--q-accent-strong": "#1a6fb0",
+          "--q-success": "#6b7d00",
+          "--q-warning": "#b58900",
+          "--q-error": "#dc322f",
+          "--q-info": "#1f8c84"
+        }
+      },
+      {
+        "id": "one-dark",
+        "name": "One Dark",
+        "description": "Atom's flagship palette — cool greys with a blue accent, paired with a crisp One Light variant.",
+        "dark": {
+          "--q-bg-0": "#282c34",
+          "--q-bg-1": "#21252b",
+          "--q-bg-2": "#2c313a",
+          "--q-border": "#3e4451",
+          "--q-text-0": "#abb2bf",
+          "--q-text-1": "#9da5b4",
+          "--q-text-2": "#5c6370",
+          "--q-accent": "#61afef",
+          "--q-accent-soft": "rgba(97, 175, 239, 0.15)",
+          "--q-accent-strong": "#82c0ff",
+          "--q-success": "#98c379",
+          "--q-warning": "#e5c07b",
+          "--q-error": "#e06c75",
+          "--q-info": "#56b6c2"
+        },
+        "light": {
+          "--q-bg-0": "#fafafa",
+          "--q-bg-1": "#f0f0f0",
+          "--q-bg-2": "#eaeaeb",
+          "--q-border": "#d4d4d5",
+          "--q-text-0": "#383a42",
+          "--q-text-1": "#4f525e",
+          "--q-text-2": "#a0a1a7",
+          "--q-accent": "#4078f2",
+          "--q-accent-soft": "#dde6fd",
+          "--q-accent-strong": "#2a5fd6",
+          "--q-success": "#50a14f",
+          "--q-warning": "#c18401",
+          "--q-error": "#e45649",
+          "--q-info": "#0184bc"
+        }
+      },
+      {
+        "id": "rose-pine",
+        "name": "Rosé Pine",
+        "description": "All natural pine, faux fur and a bit of soho vibes — the Main dark and Dawn light variants.",
+        "dark": {
+          "--q-bg-0": "#191724",
+          "--q-bg-1": "#161420",
+          "--q-bg-2": "#1f1d2e",
+          "--q-border": "#26233a",
+          "--q-text-0": "#e0def4",
+          "--q-text-1": "#908caa",
+          "--q-text-2": "#6e6a86",
+          "--q-accent": "#c4a7e7",
+          "--q-accent-soft": "rgba(196, 167, 231, 0.15)",
+          "--q-accent-strong": "#d3bdf0",
+          "--q-success": "#9ccfd8",
+          "--q-warning": "#f6c177",
+          "--q-error": "#eb6f92",
+          "--q-info": "#3e8fb0"
+        },
+        "light": {
+          "--q-bg-0": "#faf4ed",
+          "--q-bg-1": "#f4ece3",
+          "--q-bg-2": "#f2e9e1",
+          "--q-border": "#dfd9d2",
+          "--q-text-0": "#575279",
+          "--q-text-1": "#797593",
+          "--q-text-2": "#9893a5",
+          "--q-accent": "#907aa9",
+          "--q-accent-soft": "#ece6f0",
+          "--q-accent-strong": "#7a6592",
+          "--q-success": "#56949f",
+          "--q-warning": "#ea9d34",
+          "--q-error": "#b4637a",
+          "--q-info": "#286983"
         }
       }
     ]

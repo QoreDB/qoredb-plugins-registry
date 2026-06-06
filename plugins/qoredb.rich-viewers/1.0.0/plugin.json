@@ -52,7 +52,8 @@
       {
         "id": "sparkline",
         "match": { "namePattern": "*sparkline*" },
-        "renderer": "chart"
+        "renderer": "chart",
+        "options": { "type": "line" }
       },
       {
         "id": "color-by-name",
