@@ -28,7 +28,7 @@
     "hooks": [
       "postExecute"
     ],
-    "integrity": "sha256-0adde7bb2d320b597466cc65d9f4def72e922a82e2a6ce9934dd05d5aaeed326"
+    "integrity": "sha256-77e47615e7eea0e6950fa693100fa56c865e57d7a3b7a88145a3c617ba466baa"
   },
   "version": "1.0.0"
 }

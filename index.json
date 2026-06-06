@@ -161,7 +161,7 @@
               "log",
               "storage"
             ],
-            "integrity": "sha256-5ad72e54cc1ff4f4c3cc782f78903ca8c5e5f777bc5bca3e75e7f6cc9fb0fd83"
+            "integrity": "sha256-6c27e117032dd600afb50f634f8924eb104cb961446a1c2372389a6562f00e5b"
           },
           "contributes": {
             "snippets": 0,
@@ -175,8 +175,8 @@
           },
           "archive": {
             "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.query-stats/1.0.0/plugin.zip",
-            "sha256": "sha256-d2ddff07d70f05d7aa5e83bf7c97b6c633dab09434f46ba9b20a8cb5170bfd69",
-            "sizeBytes": 55516
+            "sha256": "sha256-7e5dc5c4ce3aef9fd167b127e59f0ec60e247ff9965705ea2a3984ceaae80ab4",
+            "sizeBytes": 43602
           },
           "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.query-stats/1.0.0/plugin.json"
         }
@@ -237,7 +237,7 @@
               "notify",
               "storage"
             ],
-            "integrity": "sha256-0adde7bb2d320b597466cc65d9f4def72e922a82e2a6ce9934dd05d5aaeed326"
+            "integrity": "sha256-77e47615e7eea0e6950fa693100fa56c865e57d7a3b7a88145a3c617ba466baa"
           },
           "contributes": {
             "snippets": 0,
@@ -251,8 +251,8 @@
           },
           "archive": {
             "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.slow-query-toast/1.0.0/plugin.zip",
-            "sha256": "sha256-bca16270c3e69dbef5f73b0eb507dd5d7211f90368f66510f00382dedffecc38",
-            "sizeBytes": 51530
+            "sha256": "sha256-d3293fb95e11baead0bb7ca1c7c745fdc01fafc1d99c40732cd9a11f10accabb",
+            "sizeBytes": 39274
           },
           "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.slow-query-toast/1.0.0/plugin.json"
         }
