@@ -1,0 +1,56 @@
+{
+  "$schema": "../../../plugin.schema.json",
+  "id": "qoredb.mysql-snippets",
+  "name": "MySQL DBA Snippets",
+  "version": "1.0.0",
+  "author": "QoreDB",
+  "description": "A pack of ready-to-run MySQL / MariaDB diagnostic queries — table sizes, unused indexes, slow statements, blocking locks, long-running sessions and buffer pool hit ratio. Insert them from the snippets menu in the query editor. Some queries use the sys / performance_schema (MySQL 5.7+).",
+  "category": "productivity",
+  "qoredb": ">=0.1.29",
+  "contributes": {
+    "snippets": [
+      {
+        "id": "table-sizes",
+        "label": "Table sizes (top 20)",
+        "description": "Largest tables by data + index size, with approximate row counts.",
+        "template": "SELECT\n  table_schema AS `schema`,\n  table_name AS `table`,\n  ROUND((data_length + index_length) / 1024 / 1024, 1) AS total_mb,\n  ROUND(data_length / 1024 / 1024, 1) AS data_mb,\n  ROUND(index_length / 1024 / 1024, 1) AS index_mb,\n  table_rows AS approx_rows\nFROM information_schema.tables\nWHERE table_type = 'BASE TABLE'\n  AND table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')\nORDER BY data_length + index_length DESC\nLIMIT 20;"
+      },
+      {
+        "id": "unused-indexes",
+        "label": "Unused indexes",
+        "description": "Indexes never used since the last restart. Requires the sys schema (MySQL 5.7+).",
+        "template": "SELECT\n  object_schema AS `schema`,\n  object_name AS `table`,\n  index_name\nFROM sys.schema_unused_indexes\nORDER BY object_schema, object_name;"
+      },
+      {
+        "id": "slow-statements",
+        "label": "Slow statements (digest)",
+        "description": "Top normalized statements by total latency. Requires performance_schema.",
+        "template": "SELECT\n  schema_name AS `schema`,\n  count_star AS calls,\n  ROUND(sum_timer_wait / 1e12, 2) AS total_s,\n  ROUND(avg_timer_wait / 1e9, 2) AS avg_ms,\n  ROUND(sum_rows_examined / NULLIF(count_star, 0)) AS avg_rows_examined,\n  digest_text AS query\nFROM performance_schema.events_statements_summary_by_digest\nORDER BY sum_timer_wait DESC\nLIMIT 20;"
+      },
+      {
+        "id": "blocking-locks",
+        "label": "Blocking locks",
+        "description": "Transactions blocked on InnoDB row locks, and what blocks them. Requires the sys schema.",
+        "template": "SELECT\n  waiting_pid AS waiting_thread,\n  waiting_query,\n  blocking_pid AS blocking_thread,\n  blocking_query,\n  wait_age\nFROM sys.innodb_lock_waits\nORDER BY wait_age DESC;"
+      },
+      {
+        "id": "long-running",
+        "label": "Long-running sessions",
+        "description": "Non-idle sessions running longer than 5 seconds.",
+        "template": "SELECT\n  id,\n  user,\n  host,\n  db,\n  command,\n  time AS seconds,\n  state,\n  LEFT(info, 200) AS query\nFROM information_schema.processlist\nWHERE command <> 'Sleep'\n  AND time > 5\nORDER BY time DESC;"
+      },
+      {
+        "id": "buffer-pool-hit-ratio",
+        "label": "Buffer pool hit ratio",
+        "description": "InnoDB buffer pool hit rate — aim for > 0.99 on a warm database.",
+        "template": "SELECT\n  reqs.variable_value AS read_requests,\n  reads.variable_value AS disk_reads,\n  ROUND(1 - (reads.variable_value / NULLIF(reqs.variable_value, 0)), 4) AS hit_ratio\nFROM performance_schema.global_status AS reqs\nJOIN performance_schema.global_status AS reads\n  ON reads.variable_name = 'Innodb_buffer_pool_reads'\nWHERE reqs.variable_name = 'Innodb_buffer_pool_read_requests';"
+      },
+      {
+        "id": "tables-without-pk",
+        "label": "Tables without a primary key",
+        "description": "Base tables that have no primary key — a replication and performance hazard.",
+        "template": "SELECT\n  t.table_schema AS `schema`,\n  t.table_name AS `table`\nFROM information_schema.tables AS t\nLEFT JOIN information_schema.table_constraints AS c\n  ON c.table_schema = t.table_schema\n  AND c.table_name = t.table_name\n  AND c.constraint_type = 'PRIMARY KEY'\nWHERE t.table_type = 'BASE TABLE'\n  AND t.table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')\n  AND c.constraint_name IS NULL\nORDER BY t.table_schema, t.table_name;"
+      }
+    ]
+  }
+}

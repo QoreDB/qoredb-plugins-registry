@@ -1,0 +1,99 @@
+{
+  "$schema": "../../../plugin.schema.json",
+  "id": "qoredb.rich-viewers",
+  "name": "Rich Result Viewers",
+  "version": "1.0.0",
+  "author": "QoreDB",
+  "description": "Renders result cells inline: JSON/JSONB columns as a pretty tree, image URLs as thumbnails, chart payloads as tiny sparklines, hex/rgb colors as swatches, booleans as pills, and byte counts as human-readable sizes. Matching happens by column type and by name, so it just works on your existing tables.",
+  "category": "productivity",
+  "qoredb": ">=0.1.29",
+  "contributes": {
+    "resultViewers": [
+      {
+        "id": "jsonb-tree",
+        "match": { "columnType": "jsonb" },
+        "renderer": "json-tree"
+      },
+      {
+        "id": "json-tree",
+        "match": { "columnType": "json" },
+        "renderer": "json-tree"
+      },
+      {
+        "id": "json-by-name",
+        "match": { "namePattern": "*_json" },
+        "renderer": "json-tree"
+      },
+      {
+        "id": "payload-by-name",
+        "match": { "namePattern": "*payload*" },
+        "renderer": "json-tree"
+      },
+      {
+        "id": "metadata-by-name",
+        "match": { "namePattern": "*metadata*" },
+        "renderer": "json-tree"
+      },
+      {
+        "id": "image-url",
+        "match": { "namePattern": "*image*" },
+        "renderer": "image"
+      },
+      {
+        "id": "avatar-url",
+        "match": { "namePattern": "*avatar*" },
+        "renderer": "image"
+      },
+      {
+        "id": "thumbnail-url",
+        "match": { "namePattern": "*thumbnail*" },
+        "renderer": "image"
+      },
+      {
+        "id": "sparkline",
+        "match": { "namePattern": "*sparkline*" },
+        "renderer": "chart"
+      },
+      {
+        "id": "color-by-name",
+        "match": { "namePattern": "*color*" },
+        "renderer": "color"
+      },
+      {
+        "id": "colour-by-name",
+        "match": { "namePattern": "*colour*" },
+        "renderer": "color"
+      },
+      {
+        "id": "hex-by-name",
+        "match": { "namePattern": "*_hex" },
+        "renderer": "color"
+      },
+      {
+        "id": "bool-by-type",
+        "match": { "columnType": "boolean" },
+        "renderer": "boolean"
+      },
+      {
+        "id": "bool-by-type-short",
+        "match": { "columnType": "bool" },
+        "renderer": "boolean"
+      },
+      {
+        "id": "bool-is-by-name",
+        "match": { "namePattern": "is_*" },
+        "renderer": "boolean"
+      },
+      {
+        "id": "bool-has-by-name",
+        "match": { "namePattern": "has_*" },
+        "renderer": "boolean"
+      },
+      {
+        "id": "bytes-by-name",
+        "match": { "namePattern": "*_bytes" },
+        "renderer": "bytes"
+      }
+    ]
+  }
+}

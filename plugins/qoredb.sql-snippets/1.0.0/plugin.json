@@ -1,0 +1,56 @@
+{
+  "$schema": "../../../plugin.schema.json",
+  "id": "qoredb.sql-snippets",
+  "name": "Postgres DBA Snippets",
+  "version": "1.0.0",
+  "author": "QoreDB",
+  "description": "A pack of ready-to-run PostgreSQL diagnostic queries — table sizes, bloat, index usage, slow queries, locks and idle connections. Insert them from the snippets menu in the query editor.",
+  "category": "productivity",
+  "qoredb": ">=0.1.29",
+  "contributes": {
+    "snippets": [
+      {
+        "id": "table-sizes",
+        "label": "Table sizes (top 20)",
+        "description": "Largest tables by total size, including indexes and TOAST.",
+        "template": "SELECT\n  schemaname AS schema,\n  relname AS table,\n  pg_size_pretty(pg_total_relation_size(relid)) AS total_size,\n  pg_size_pretty(pg_relation_size(relid)) AS table_size,\n  pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) AS index_size\nFROM pg_catalog.pg_statio_user_tables\nORDER BY pg_total_relation_size(relid) DESC\nLIMIT 20;"
+      },
+      {
+        "id": "unused-indexes",
+        "label": "Unused indexes",
+        "description": "Indexes that have never been scanned — candidates for removal.",
+        "template": "SELECT\n  schemaname AS schema,\n  relname AS table,\n  indexrelname AS index,\n  pg_size_pretty(pg_relation_size(indexrelid)) AS index_size,\n  idx_scan AS scans\nFROM pg_stat_user_indexes\nWHERE idx_scan = 0\n  AND indexrelid NOT IN (SELECT conindid FROM pg_constraint WHERE contype IN ('p', 'u'))\nORDER BY pg_relation_size(indexrelid) DESC;"
+      },
+      {
+        "id": "slow-queries",
+        "label": "Slow queries (pg_stat_statements)",
+        "description": "Top statements by total execution time. Requires the pg_stat_statements extension.",
+        "template": "SELECT\n  calls,\n  round(total_exec_time::numeric, 1) AS total_ms,\n  round(mean_exec_time::numeric, 2) AS mean_ms,\n  round((100 * total_exec_time / sum(total_exec_time) OVER ())::numeric, 1) AS pct,\n  query\nFROM pg_stat_statements\nORDER BY total_exec_time DESC\nLIMIT 20;"
+      },
+      {
+        "id": "current-locks",
+        "label": "Blocking locks",
+        "description": "Sessions currently blocked, and the session blocking them.",
+        "template": "SELECT\n  blocked.pid AS blocked_pid,\n  blocked.query AS blocked_query,\n  blocking.pid AS blocking_pid,\n  blocking.query AS blocking_query\nFROM pg_stat_activity AS blocked\nJOIN pg_stat_activity AS blocking\n  ON blocking.pid = ANY(pg_blocking_pids(blocked.pid))\nWHERE cardinality(pg_blocking_pids(blocked.pid)) > 0;"
+      },
+      {
+        "id": "idle-connections",
+        "label": "Idle in transaction",
+        "description": "Connections holding a transaction open without doing work.",
+        "template": "SELECT\n  pid,\n  usename AS user,\n  state,\n  now() - state_change AS idle_for,\n  query\nFROM pg_stat_activity\nWHERE state = 'idle in transaction'\nORDER BY state_change ASC;"
+      },
+      {
+        "id": "cache-hit-ratio",
+        "label": "Cache hit ratio",
+        "description": "Buffer cache hit rate — aim for > 0.99 on a warm database.",
+        "template": "SELECT\n  sum(heap_blks_hit) AS cache_hits,\n  sum(heap_blks_read) AS disk_reads,\n  round(\n    sum(heap_blks_hit)::numeric\n    / nullif(sum(heap_blks_hit) + sum(heap_blks_read), 0),\n    4\n  ) AS hit_ratio\nFROM pg_statio_user_tables;"
+      },
+      {
+        "id": "dead-tuples",
+        "label": "Bloat / dead tuples",
+        "description": "Tables with the most dead rows awaiting vacuum.",
+        "template": "SELECT\n  schemaname AS schema,\n  relname AS table,\n  n_live_tup AS live_rows,\n  n_dead_tup AS dead_rows,\n  round(100 * n_dead_tup::numeric / nullif(n_live_tup + n_dead_tup, 0), 1) AS dead_pct,\n  last_autovacuum\nFROM pg_stat_user_tables\nWHERE n_dead_tup > 0\nORDER BY n_dead_tup DESC\nLIMIT 20;"
+      }
+    ]
+  }
+}

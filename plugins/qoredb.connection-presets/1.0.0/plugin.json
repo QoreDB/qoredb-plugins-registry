@@ -1,0 +1,134 @@
+{
+  "$schema": "../../../plugin.schema.json",
+  "id": "qoredb.connection-presets",
+  "name": "Connection Presets",
+  "version": "1.0.0",
+  "author": "QoreDB",
+  "description": "One-click connection presets for common setups — local Postgres and MySQL, Docker containers, Supabase, Neon and TimescaleDB. They appear in the new-connection dialog for the matching driver.",
+  "category": "integrations",
+  "qoredb": ">=0.1.29",
+  "contributes": {
+    "connectionTemplates": [
+      {
+        "id": "local-postgres",
+        "name": "Local Postgres",
+        "description": "Postgres on localhost:5432 with the default 'postgres' database.",
+        "driver": "postgres",
+        "defaults": {
+          "name": "Local Postgres",
+          "host": "localhost",
+          "port": 5432,
+          "database": "postgres",
+          "username": "postgres",
+          "ssl": false,
+          "environment": "dev"
+        }
+      },
+      {
+        "id": "docker-postgres",
+        "name": "Docker Postgres",
+        "description": "Postgres exposed from a Docker container on 127.0.0.1:5432.",
+        "driver": "postgres",
+        "defaults": {
+          "name": "Docker Postgres",
+          "host": "127.0.0.1",
+          "port": 5432,
+          "database": "postgres",
+          "username": "postgres",
+          "ssl": false,
+          "environment": "dev"
+        }
+      },
+      {
+        "id": "supabase",
+        "name": "Supabase",
+        "description": "Supabase pooled connection. Replace the host with your project's pooler endpoint and use port 6543.",
+        "driver": "postgres",
+        "defaults": {
+          "name": "Supabase",
+          "host": "aws-0-eu-central-1.pooler.supabase.com",
+          "port": 6543,
+          "database": "postgres",
+          "username": "postgres",
+          "ssl": true,
+          "sslMode": "require",
+          "environment": "prod"
+        }
+      },
+      {
+        "id": "neon",
+        "name": "Neon",
+        "description": "Neon serverless Postgres. Swap the host for your endpoint; SSL is required.",
+        "driver": "postgres",
+        "defaults": {
+          "name": "Neon",
+          "host": "ep-example-123456.eu-central-1.aws.neon.tech",
+          "port": 5432,
+          "database": "neondb",
+          "username": "neondb_owner",
+          "ssl": true,
+          "sslMode": "require",
+          "environment": "prod"
+        }
+      },
+      {
+        "id": "timescale-local",
+        "name": "Local TimescaleDB",
+        "description": "TimescaleDB running locally on the default Postgres port.",
+        "driver": "postgres",
+        "defaults": {
+          "name": "Local TimescaleDB",
+          "host": "localhost",
+          "port": 5432,
+          "database": "tsdb",
+          "username": "postgres",
+          "ssl": false,
+          "environment": "dev"
+        }
+      },
+      {
+        "id": "local-mysql",
+        "name": "Local MySQL",
+        "description": "MySQL on localhost:3306 with the root account.",
+        "driver": "mysql",
+        "defaults": {
+          "name": "Local MySQL",
+          "host": "localhost",
+          "port": 3306,
+          "database": "mysql",
+          "username": "root",
+          "ssl": false,
+          "environment": "dev"
+        }
+      },
+      {
+        "id": "local-mariadb",
+        "name": "Local MariaDB",
+        "description": "MariaDB on localhost:3306.",
+        "driver": "mariadb",
+        "defaults": {
+          "name": "Local MariaDB",
+          "host": "localhost",
+          "port": 3306,
+          "database": "mysql",
+          "username": "root",
+          "ssl": false,
+          "environment": "dev"
+        }
+      },
+      {
+        "id": "local-mongo",
+        "name": "Local MongoDB",
+        "description": "MongoDB on localhost:27017.",
+        "driver": "mongodb",
+        "defaults": {
+          "name": "Local MongoDB",
+          "host": "localhost",
+          "port": 27017,
+          "database": "test",
+          "environment": "dev"
+        }
+      }
+    ]
+  }
+}

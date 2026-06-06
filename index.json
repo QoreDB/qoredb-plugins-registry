@@ -1,8 +1,39 @@
 {
   "$schema": "./schema/registry-entry.schema.json",
   "registryVersion": 1,
-  "generatedAt": "2026-05-24T18:30:24Z",
+  "generatedAt": "2026-06-04T20:23:57Z",
   "plugins": [
+    {
+      "id": "qoredb.connection-presets",
+      "name": "Connection Presets",
+      "author": "QoreDB",
+      "description": "One-click connection presets for common setups — local Postgres and MySQL, Docker containers, Supabase, Neon and TimescaleDB. They appear in the new-connection dialog for the matching driver.",
+      "category": "integrations",
+      "latestVersion": "1.0.0",
+      "kind": "declarative",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "qoredb": ">=0.1.29",
+          "category": "integrations",
+          "kind": "declarative",
+          "runtime": null,
+          "contributes": {
+            "snippets": 0,
+            "connectionTemplates": 8,
+            "themes": 0,
+            "resultViewers": 0,
+            "commands": []
+          },
+          "archive": {
+            "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.connection-presets/1.0.0/plugin.zip",
+            "sha256": "sha256-e00c793ef20bb8a5f54106a51917e28acb62bdd0be35c0bfc98a66ab561ac137",
+            "sizeBytes": 1006
+          },
+          "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.connection-presets/1.0.0/plugin.json"
+        }
+      ]
+    },
     {
       "id": "qoredb.danger-guard",
       "name": "Danger Guard",
@@ -41,6 +72,37 @@
             "sizeBytes": 45454
           },
           "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.danger-guard/1.0.0/plugin.json"
+        }
+      ]
+    },
+    {
+      "id": "qoredb.mysql-snippets",
+      "name": "MySQL DBA Snippets",
+      "author": "QoreDB",
+      "description": "A pack of ready-to-run MySQL / MariaDB diagnostic queries — table sizes, unused indexes, slow statements, blocking locks, long-running sessions and buffer pool hit ratio. Insert them from the snippets menu in the query editor. Some queries use the sys / performance_schema (MySQL 5.7+).",
+      "category": "productivity",
+      "latestVersion": "1.0.0",
+      "kind": "declarative",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "qoredb": ">=0.1.29",
+          "category": "productivity",
+          "kind": "declarative",
+          "runtime": null,
+          "contributes": {
+            "snippets": 7,
+            "connectionTemplates": 0,
+            "themes": 0,
+            "resultViewers": 0,
+            "commands": []
+          },
+          "archive": {
+            "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.mysql-snippets/1.0.0/plugin.zip",
+            "sha256": "sha256-14d831e2043bdb18a526811ec87accc6ef6fa5b957334d6ec6fc218466e66641",
+            "sizeBytes": 1590
+          },
+          "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.mysql-snippets/1.0.0/plugin.json"
         }
       ]
     },
@@ -90,6 +152,37 @@
       ]
     },
     {
+      "id": "qoredb.rich-viewers",
+      "name": "Rich Result Viewers",
+      "author": "QoreDB",
+      "description": "Renders result cells inline: JSON/JSONB columns as a pretty tree, image URLs as thumbnails, chart payloads as tiny sparklines, hex/rgb colors as swatches, booleans as pills, and byte counts as human-readable sizes. Matching happens by column type and by name, so it just works on your existing tables.",
+      "category": "productivity",
+      "latestVersion": "1.0.0",
+      "kind": "declarative",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "qoredb": ">=0.1.29",
+          "category": "productivity",
+          "kind": "declarative",
+          "runtime": null,
+          "contributes": {
+            "snippets": 0,
+            "connectionTemplates": 0,
+            "themes": 0,
+            "resultViewers": 17,
+            "commands": []
+          },
+          "archive": {
+            "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.rich-viewers/1.0.0/plugin.zip",
+            "sha256": "sha256-bc1c658ed22829e4aa54a63d5c236056aea53595f05210ca68eb9f8f7b7f08dc",
+            "sizeBytes": 718
+          },
+          "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.rich-viewers/1.0.0/plugin.json"
+        }
+      ]
+    },
+    {
       "id": "qoredb.slow-query-toast",
       "name": "Slow Query Toast",
       "author": "QoreDB",
@@ -131,6 +224,68 @@
             "sizeBytes": 51530
           },
           "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.slow-query-toast/1.0.0/plugin.json"
+        }
+      ]
+    },
+    {
+      "id": "qoredb.sql-snippets",
+      "name": "Postgres DBA Snippets",
+      "author": "QoreDB",
+      "description": "A pack of ready-to-run PostgreSQL diagnostic queries — table sizes, bloat, index usage, slow queries, locks and idle connections. Insert them from the snippets menu in the query editor.",
+      "category": "productivity",
+      "latestVersion": "1.0.0",
+      "kind": "declarative",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "qoredb": ">=0.1.29",
+          "category": "productivity",
+          "kind": "declarative",
+          "runtime": null,
+          "contributes": {
+            "snippets": 7,
+            "connectionTemplates": 0,
+            "themes": 0,
+            "resultViewers": 0,
+            "commands": []
+          },
+          "archive": {
+            "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.sql-snippets/1.0.0/plugin.zip",
+            "sha256": "sha256-6144e24f82fee0dc0d91c2d937533e2811bd61e0d9134395e3ee976ac0469804",
+            "sizeBytes": 1448
+          },
+          "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.sql-snippets/1.0.0/plugin.json"
+        }
+      ]
+    },
+    {
+      "id": "qoredb.theme-pack",
+      "name": "Theme Pack",
+      "author": "QoreDB",
+      "description": "Five hand-tuned color themes — Dracula, Nord, Tokyo Night, Gruvbox and Catppuccin — each with matching light and dark variants. Apply one from Settings › Plugins to restyle the whole app.",
+      "category": "theming",
+      "latestVersion": "1.0.0",
+      "kind": "declarative",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "qoredb": ">=0.1.29",
+          "category": "theming",
+          "kind": "declarative",
+          "runtime": null,
+          "contributes": {
+            "snippets": 0,
+            "connectionTemplates": 0,
+            "themes": 5,
+            "resultViewers": 0,
+            "commands": []
+          },
+          "archive": {
+            "url": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.theme-pack/1.0.0/plugin.zip",
+            "sha256": "sha256-196dafa9a689abd06a1aa8a83fd35890b34f4a671f55601788e9fa077bd632df",
+            "sizeBytes": 1805
+          },
+          "manifestUrl": "https://raw.githubusercontent.com/qoredb/qoredb-plugins-registry/main/plugins/qoredb.theme-pack/1.0.0/plugin.json"
         }
       ]
     }
